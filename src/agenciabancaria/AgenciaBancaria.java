@@ -12,7 +12,7 @@ public class AgenciaBancaria {
         menuInicial();
     }
 
-//Menuzito max
+//Menuzito
     public static void menuInicial() {
         int opcao = Integer.parseInt(
             JOptionPane.showInputDialog(
@@ -41,13 +41,13 @@ public class AgenciaBancaria {
     public static void criarConta() {
 
         int numeroConta = gerarNumeroConta();
-        String nome = JOptionPane.showInputDialog("Nome do cliente");
+        String nome = JOptionPane.showInputDialog("Nome do cliente: ");
         int senha = lerSenha();
 
         double saldoInicial;
         do {
             saldoInicial = Double.parseDouble(
-                JOptionPane.showInputDialog("Saldo inicial (maior que zero)")
+                JOptionPane.showInputDialog("Saldo inicial (maior que zero): ")
             );
         } while (saldoInicial <= 0);
 
@@ -113,21 +113,21 @@ public class AgenciaBancaria {
 
 
     public static void depositar() {
-        int nc = Integer.parseInt(JOptionPane.showInputDialog("Número da conta"));
+        int nc = Integer.parseInt(JOptionPane.showInputDialog("Número da conta: "));
         Conta conta = encontrarConta(nc);
 
         if (conta == null) {
-            JOptionPane.showMessageDialog(null, "Conta não encontrada");
+            JOptionPane.showMessageDialog(null, "Infelizmente, conta não encontrada");
             return;
         }
 
         double valor = Double.parseDouble(
-            JOptionPane.showInputDialog("Valor do depósito")
+            JOptionPane.showInputDialog("Valor do depósito: ")
         );
 
         if (conta.depositar(valor)) {
             JOptionPane.showMessageDialog(null,
-                "Depósito realizado!\n" +
+                "Depósito realizado com sucesso!\n" +
                 "Saldo atual: R$ " + conta.getSaldo()
             );
         } else {
@@ -141,13 +141,13 @@ public class AgenciaBancaria {
     public static void sacar() {
 
     int nc = Integer.parseInt(
-        JOptionPane.showInputDialog("Número da conta")
+        JOptionPane.showInputDialog("Número da conta: ")
     );
 
     Conta conta = encontrarConta(nc);
 
     if (conta == null) {
-        JOptionPane.showMessageDialog(null, "Conta não encontrada");
+        JOptionPane.showMessageDialog(null, "Infelizmente, conta não encontrada");
         operacoes();
         return;
     }
@@ -192,12 +192,12 @@ public class AgenciaBancaria {
         );
 
         double valor = Double.parseDouble(
-            JOptionPane.showInputDialog("Valor da transferência")
+            JOptionPane.showInputDialog("Valor da transferência: ")
         );
 
         if (contaOrigem.transferir(valor, contaDestino)) {
             JOptionPane.showMessageDialog(null,
-                "Transferência realizada!\n" +
+                "Transferência realizada com sucesso!\n" +
                 "Origem: " + origem +
                 "\nDestino: " + destino +
                 "\nValor: R$ " + valor
@@ -212,7 +212,7 @@ public class AgenciaBancaria {
 
 
     public static void listar() {
-        int numero = Integer.parseInt(JOptionPane.showInputDialog("Número da conta"));
+        int numero = Integer.parseInt(JOptionPane.showInputDialog("Número da conta: "));
         Conta conta = encontrarConta(numero);
         Pessoa pessoa = encontrarPessoa(numero);
 
@@ -223,10 +223,11 @@ public class AgenciaBancaria {
                 "\nSaldo: R$ " + conta.getSaldo()
             );
         } else {
-            JOptionPane.showMessageDialog(null, "Conta não encontrada");
+            JOptionPane.showMessageDialog(null, "Conta não encontrada!");
         }
           operacoes();
     }
+
 
 
     public static int gerarNumeroConta() {
@@ -240,7 +241,7 @@ public class AgenciaBancaria {
     public static int lerSenha() {
         while (true) {
             try {
-                String s = JOptionPane.showInputDialog("Senha (6 dígitos)");
+                String s = JOptionPane.showInputDialog("Senha (OBRIGATÓRIO: 6 dígitos)");
                 if (s.length() != 6) throw new Exception();
                 return Integer.parseInt(s);
             } catch (Exception e) {
